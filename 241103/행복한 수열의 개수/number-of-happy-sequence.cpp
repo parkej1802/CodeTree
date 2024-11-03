@@ -7,32 +7,40 @@ int checkRowCol(int n, int m, vector<vector<int>> matrix) {
 
     int result = 0;
 
-    for (int row = 1; row < n; row++) {
-        int countX = 1, countY = 1;
+    for (int row = 0; row < n; row++) {
+        int countX = 1;
 
         for (int col = 1; col < n; col++) {
-            if (matrix[row - 1][col - 1] == matrix[row - 1][col]) {
+            if (matrix[row][col] == matrix[row][col - 1]) {
                 countX++;
                 if (countX == m) {
                     result++;
+                    break;
                 }
             }
             else {
                 countX = 1;
             }
+        }
+    }
 
-            if (matrix[col - 1][row - 1] == matrix[col][row - 1]) {
+    for (int row = 0; row < n; row++) {
+        int countY = 1;
+        for (int col = 1; col < n; col++) {
+            if (matrix[col][row] == matrix[col - 1][row]) {
                 countY++;
                 if (countY == m) {
                     result++;
+                    break;
                 }
             }
             else {
                 countY = 1;
             }
+
         }
     }
-
+    
     if (m == 1) {
         return 2 * n;
     }
