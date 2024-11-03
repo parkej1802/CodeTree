@@ -25,17 +25,17 @@ int trimino(int n, int m, vector<vector<int>> matrix) {
                 maxValue = max(maxValue, value);
             }
 
-            if (col - 1 > 0 && row - 1 > 0) {
+            if (col - 1 >= 0 && row - 1 >= 0) {
                 value = matrix[row][col] + matrix[row - 1][col] + matrix[row][col - 1];
                 maxValue = max(maxValue, value);
             }
 
-            if (col + 1 < m && row - 1 > 0) {
+            if (col + 1 < m && row - 1 >= 0) {
                 value = matrix[row][col] + matrix[row - 1][col] + matrix[row][col + 1];
                 maxValue = max(maxValue, value);
             }
 
-            if (row + 1 < n && col - 1 > 0) {
+            if (row + 1 < n && col - 1 >= 0) {
                 value = matrix[row][col] + matrix[row + 1][col] + matrix[row][col - 1];
                 maxValue = max(maxValue, value);
             }
