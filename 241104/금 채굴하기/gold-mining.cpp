@@ -24,7 +24,7 @@ int coverK(vector<vector<int>> matrix, int row, int col, int k, int n, int m) {
 }
 
 int digGold(int n, int m, vector<vector<int>> matrix) {
-    int maxGold = INT_MIN;
+    int maxGold = 0;
     int result;
 
     
