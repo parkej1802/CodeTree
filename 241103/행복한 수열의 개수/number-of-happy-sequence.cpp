@@ -6,14 +6,14 @@ using namespace std;
 int checkRowCol(int n, int m, vector<vector<int>> matrix) {
 
     int result = 0;
-    int countX = 1, countY = 1;
 
     for (int row = 1; row < n; row++) {
-        
+        int countX = 1, countY = 1;
+
         for (int col = 1; col < n; col++) {
-            if (matrix[row][col] == matrix[row - 1][col - 1]) {
+            if (matrix[row - 1][col - 1] == matrix[row - 1][col]) {
                 countX++;
-                if (countX >= m) {
+                if (countX == m) {
                     result++;
                 }
             }
@@ -21,21 +21,16 @@ int checkRowCol(int n, int m, vector<vector<int>> matrix) {
                 countX = 1;
             }
 
-            if (matrix[col][row] == matrix[col - 1][row - 1]) {
+            if (matrix[col - 1][row - 1] == matrix[col][row - 1]) {
                 countY++;
-                if (countY >= m) {
+                if (countY == m) {
                     result++;
                 }
             }
             else {
                 countY = 1;
             }
-
-            
         }
-
-        
-        
     }
 
     if (m == 1) {
