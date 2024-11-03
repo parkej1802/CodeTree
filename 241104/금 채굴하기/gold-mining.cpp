@@ -11,82 +11,36 @@ int kCost(int k) {
 int coverK(vector<vector<int>> matrix, int row, int col, int k, int n, int m) {
 
     int count = 0;
-    int maxGold = 0;
 
-    for (int i = 0; i <= k; i++) {
-        
-        int bottomSide = row + i;
-        int topSide = row - i;
-        int leftSide = col - i;
-        int rightSide = col + i;
-        
-        if (i == 0) {
-            if (matrix[row][col] == 1) count++;
-        }
-
-        else {
-            if (bottomSide < n && matrix[bottomSide][col] == 1) {
-                count++;
-                if (rightSide < n && matrix[bottomSide - 1][rightSide] == 1) {
-                    count++;
-                }
-                if (leftSide > 0 && matrix[bottomSide - 1][leftSide] == 1) {
-                    count++;
-                }
-            }
-            if (topSide > 0 && matrix[topSide][col] == 1) {
-                count++;
-                if (rightSide < n && matrix[topSide + 1][rightSide] == 1) {
-                    count++;
-                }
-                if (leftSide > 0 && matrix[topSide + 1][leftSide] == 1) {
-                    count++;
-                }
-            }
-            if (rightSide < n && matrix[row][rightSide] == 1) {
-                count++;
-                if (bottomSide < n && matrix[bottomSide][rightSide - 1] == 1) {
-                    count++;
-                }
-                if (topSide > 0 && matrix[topSide][rightSide - 1] == 1) {
-                    count++;
-                }
-            }
-            if (leftSide > 0 && matrix[row][leftSide] == 1) {
-                count++;
-                if (bottomSide < n && matrix[bottomSide][leftSide + 1] == 1) {
-                    count++;
-                }
-                if (topSide > 0 && matrix[topSide][leftSide + 1] == 1) {
-                    count++;
-                }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (abs(row - i) + abs(col - j) <= k) {
+                count += matrix[i][j];
             }
         }
-        
-        if (maxGold < count && kCost(i) < count * m) {
-            maxGold = count;
-        }
-             
-        count = 0;
-
     }
-    return maxGold;
+
+    return count;
 }
 
 int digGold(int n, int m, vector<vector<int>> matrix) {
     int maxGold = INT_MIN;
     int result;
 
-    for (int k = 0; k < n; k++) {
-        for (int row = 0; row < n; row++) {
-            for (int col = 0; col < n; col++) {
+    
+    for (int row = 0; row < n; row++) {
+        for (int col = 0; col < n; col++) {
+            for (int k = 0; k <= 2 * (n - 1); k++) {
                 result = coverK(matrix, row, col, k, n, m);
-                maxGold = max(maxGold, result);
+
+                if (result * m > kCost(k)) {
+                    maxGold = max(maxGold, result);
+                }
             }
+            
         }
     }
     
-
     return maxGold;
 }
 
