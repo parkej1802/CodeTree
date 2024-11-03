@@ -30,11 +30,18 @@ int checkRowCol(int n, int m, vector<vector<int>> matrix) {
             else {
                 countY = 1;
             }
+
+            
         }
 
         
         
     }
+
+    if (m == 1) {
+        return 2 * n;
+    }
+
     return result;
 }
 
