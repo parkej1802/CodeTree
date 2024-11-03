@@ -13,8 +13,6 @@ int coverK(vector<vector<int>> matrix, int row, int col, int k, int n, int m) {
     int count = 0;
     int maxGold = 0;
 
-    vector<vector<bool>> visited(n, vector<bool>(n, false));
-
     for (int i = 0; i <= k; i++) {
         
         int bottomSide = row + i;
@@ -22,48 +20,49 @@ int coverK(vector<vector<int>> matrix, int row, int col, int k, int n, int m) {
         int leftSide = col - i;
         int rightSide = col + i;
         
-
-        if (bottomSide < n && !visited[bottomSide][col] && matrix[bottomSide][col] == 1) {
-            count++;
-            visited[bottomSide][col] = true;
-            if (rightSide < n && !visited[bottomSide - 1][rightSide] && matrix[bottomSide - 1][rightSide] == 1) {
-                count++;
-            }
-            if (leftSide > 0 && !visited[bottomSide - 1][leftSide] && matrix[bottomSide - 1][leftSide] == 1) {
-                count++;
-            }
-        }
-        if (topSide > 0 && !visited[topSide][col] && matrix[topSide][col] == 1) {
-            count++;
-            visited[topSide][col] = true;
-            if (rightSide < n && !visited[topSide + 1][rightSide] && matrix[topSide + 1][rightSide] == 1) {
-                count++;
-            }
-            if (leftSide > 0 && !visited[topSide + 1][leftSide] && matrix[topSide + 1][leftSide] == 1) {
-                count++;
-            }
-        }
-        if (rightSide < n && !visited[row][rightSide] && matrix[row][rightSide] == 1) {
-            count++;
-            visited[row][rightSide] = true;
-            if (bottomSide < n && !visited[bottomSide][rightSide - 1] && matrix[bottomSide][rightSide - 1] == 1) {
-                count++;
-            }
-            if (topSide > 0 && !visited[topSide][rightSide - 1] && matrix[topSide][rightSide - 1] == 1) {
-                count++;
-            }
-        }
-        if (leftSide > 0 && !visited[row][leftSide] && matrix[row][leftSide] == 1) {
-            count++;
-            visited[row][leftSide] = true;
-            if (bottomSide < n && !visited[bottomSide][leftSide + 1] && matrix[bottomSide][leftSide + 1] == 1) {
-                count++;
-            }
-            if (topSide > 0 && !visited[topSide][leftSide + 1] && matrix[topSide][leftSide + 1] == 1) {
-                count++;
-            }
+        if (i == 0) {
+            if (matrix[row][col] == 1) count++;
         }
 
+        else {
+            if (bottomSide < n && matrix[bottomSide][col] == 1) {
+                count++;
+                if (rightSide < n && matrix[bottomSide - 1][rightSide] == 1) {
+                    count++;
+                }
+                if (leftSide > 0 && matrix[bottomSide - 1][leftSide] == 1) {
+                    count++;
+                }
+            }
+            if (topSide > 0 && matrix[topSide][col] == 1) {
+                count++;
+                if (rightSide < n && matrix[topSide + 1][rightSide] == 1) {
+                    count++;
+                }
+                if (leftSide > 0 && matrix[topSide + 1][leftSide] == 1) {
+                    count++;
+                }
+            }
+            if (rightSide < n && matrix[row][rightSide] == 1) {
+                count++;
+                if (bottomSide < n && matrix[bottomSide][rightSide - 1] == 1) {
+                    count++;
+                }
+                if (topSide > 0 && matrix[topSide][rightSide - 1] == 1) {
+                    count++;
+                }
+            }
+            if (leftSide > 0 && matrix[row][leftSide] == 1) {
+                count++;
+                if (bottomSide < n && matrix[bottomSide][leftSide + 1] == 1) {
+                    count++;
+                }
+                if (topSide > 0 && matrix[topSide][leftSide + 1] == 1) {
+                    count++;
+                }
+            }
+        }
+        
         if (maxGold < count && kCost(i) < count * m) {
             maxGold = count;
         }
