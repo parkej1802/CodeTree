@@ -25,15 +25,14 @@ int coverK(vector<vector<int>> matrix, int row, int col, int k, int n, int m) {
 
 int digGold(int n, int m, vector<vector<int>> matrix) {
     int maxGold = 0;
-    int result;
+    int result = 0;
 
-    
     for (int row = 0; row < n; row++) {
         for (int col = 0; col < n; col++) {
             for (int k = 0; k <= 2 * (n - 1); k++) {
                 result = coverK(matrix, row, col, k, n, m);
 
-                if (result * m > kCost(k)) {
+                if (result * m >= kCost(k)) {
                     maxGold = max(maxGold, result);
                 }
             }
