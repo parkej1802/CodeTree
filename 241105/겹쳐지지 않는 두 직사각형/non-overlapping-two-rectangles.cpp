@@ -3,12 +3,12 @@
 #include <climits>
 using namespace std;
 
-int calcRecAreaSum(int x, int y, int nx, int ny, vector<vector<int>> matrix) {
+int calcRecAreaSum(int ax, int ay, int nx, int ny, vector<vector<int>> matrix) {
     
     int sum = 0;
 
-    for (; x <= nx; x++) {
-        for (; y <= ny; y++) {
+    for (int x = ax; x <= nx; x++) {
+        for (int y = ay; y <= ny; y++) {
             sum += matrix[x][y];
         }
     }
@@ -29,7 +29,7 @@ int twoRectangleSum(int n, int m, vector<vector<int>> matrix) {
                         for (int j2 = 0; j2 < m; j2++) {
                             for (int down2 = i2; down2 < n; down2++) {
                                 for (int right2 = j2; right2 < m; right2++) {
-                                    if (!((i1 <= down2 && down1 >= i2) && (j1 <= right2 && right1 >= j2))) {
+                                    if (down1 < i2 || i1 > down2 || right1 < j2 || j1 > right2) {
                                         int secondSum = calcRecAreaSum(i2, j2, down2, right2, matrix);
                                         globalMaxSum = max(globalMaxSum, firstSum + secondSum);
                                     }
