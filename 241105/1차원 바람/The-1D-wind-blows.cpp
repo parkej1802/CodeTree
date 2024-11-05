@@ -31,7 +31,7 @@ void oneDimensionalWind(int n, int m, vector<vector<int>>& matrix, vector<int> r
 
         move(m, row, matrix, d[numWind]);
 
-        for (int i = n - r[numWind]; i < n; i++) {
+        for (int i = r[numWind]; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (i - 1 >= 0) {
                     if (matrix[i - 1][j] == matrix[i][j]) {
@@ -39,7 +39,6 @@ void oneDimensionalWind(int n, int m, vector<vector<int>>& matrix, vector<int> r
                         break;
                     }
                 }
-                
             }
         }
 
@@ -48,9 +47,11 @@ void oneDimensionalWind(int n, int m, vector<vector<int>>& matrix, vector<int> r
         if (row - 1 >= 0) {
             for (int i = row - 1; i >= 0; i--) {
                 for (int j = 0; j < m; j++) {
-                    if (matrix[i + 1][j] == matrix[i][j]) {
-                        move(m, i, matrix, d[numWind]);
-                        break;
+                    if (i + 1 < n) {
+                        if (matrix[i + 1][j] == matrix[i][j]) {
+                            move(m, i, matrix, d[numWind]);
+                            break;
+                        }
                     }
                 }
             }
