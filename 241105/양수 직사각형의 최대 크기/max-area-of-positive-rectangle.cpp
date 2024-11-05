@@ -7,24 +7,24 @@ int calRecArea(int startX, int startY, int endX, int endY, vector<vector<int>> m
 
     for (int i = startX; i <= endX; i++) {
         for (int j = startY; j <= endY; j++) {
-            if (matrix[i][j] < 0) {
+            if (matrix[i][j] <= 0) {
                 return 0;
             }
         }
     }
+    
     return (endX - startX + 1) * (endY - startY + 1);
 }
 
 int getMaxRecArea(int n, int m, vector<vector<int>> matrix) {
     
-    int maxArea = 0;
-    int valid = 0;
+    int maxArea = -1;
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             for (int down = i; down < n; down++) {
                 for (int right = j; right < m; right++) {
-                    valid = calRecArea(i, j, down, right, matrix);
+                    int valid = calRecArea(i, j, down, right, matrix);
                     if (valid != 0) {
                         maxArea = max(valid, maxArea);
                     }
