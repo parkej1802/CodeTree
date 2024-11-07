@@ -11,7 +11,7 @@ vector<int> oneDimensionalBomb(int n, int m, vector<int>& bombs) {
 
     while (loop) {
         int bombSize = bombs.size();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < bombs.size(); i++) {
             int count = 1;
             for (int j = 1; j < bombs.size(); j++) {
                 if (i + j < bombs.size()) {
@@ -27,7 +27,7 @@ vector<int> oneDimensionalBomb(int n, int m, vector<int>& bombs) {
 
             if (count >= m) {
                 bombs.erase(bombs.begin() + i, bombs.begin() + i + count);
-                i++;
+                i -= count - 1;
             }
             
         }
