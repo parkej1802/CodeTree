@@ -43,7 +43,7 @@ void twoZeroFourEight(vector<vector<int>>& board, char dir) {
             reverse(line.begin(), line.end());
             board[i] = line;
         } 
-        else if (dir == 'U') {
+        else if (dir == 'D') {
             for (int j = 0; j < 4; j++) {
                 line[j] = board[j][i];
             }
@@ -52,7 +52,7 @@ void twoZeroFourEight(vector<vector<int>>& board, char dir) {
                 board[j][i] = line[j];
             }
         } 
-        else if (dir == 'D') {
+        else if (dir == 'U') {
             for (int j = 0; j < 4; j++) {
                 line[j] = board[j][i];
             }
