@@ -10,24 +10,24 @@ vector<int> oneDimensionalBomb(int n, int m, vector<int>& bombs) {
     vector<int> result;
 
     while (loop) {
+        loop = false;
+
         int bombSize = bombs.size();
         for (int i = 0; i < bombs.size(); i++) {
             int count = 1;
-            for (int j = 1; j < bombs.size(); j++) {
-                if (i + j < bombs.size()) {
-                    if (bombs[i] == bombs[i + j]) {
-                        count++;
-                    }
-                    else {
-                        break;
-                    }
+            for (int j = i + 1; j < bombs.size(); j++) {
+                if (bombs[i] == bombs[j]) {
+                    count++;
                 }
-                
+                else {
+                    break;
+                }
             }
 
             if (count >= m) {
                 bombs.erase(bombs.begin() + i, bombs.begin() + i + count);
-                i -= count - 1;
+                loop = true;
+                i -= 1;
             }
             
         }
