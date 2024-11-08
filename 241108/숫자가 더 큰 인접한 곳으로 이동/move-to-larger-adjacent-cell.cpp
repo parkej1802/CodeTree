@@ -13,7 +13,7 @@ vector<int> moveToLargerNum(int n, int r, int c, vector<vector<int>> matrix) {
     int col = c - 1;
 
     result.push_back(matrix[row][col]);
-    
+
     while (hasLargerNum) {
         hasLargerNum = false;
 
@@ -27,6 +27,7 @@ vector<int> moveToLargerNum(int n, int r, int c, vector<vector<int>> matrix) {
                     result.push_back(matrix[ny][nx]);
                     row = ny;
                     col = nx;
+                    break;
                 }
             }   
         }
