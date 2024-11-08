@@ -3,7 +3,7 @@
 using namespace std;
 
 int dx[4] = {0, 0, -1, 1};
-int dy[4] = {1, -1, 0, 0};
+int dy[4] = {-1, 1, 0, 0};
 
 vector<int> moveToLargerNum(int n, int r, int c, vector<vector<int>> matrix) {
     
