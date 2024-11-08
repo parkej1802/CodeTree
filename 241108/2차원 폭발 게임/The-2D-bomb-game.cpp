@@ -24,44 +24,56 @@ void applyGravity(vector<vector<int>>& matrix, int n) {
 void explodeBombs(vector<vector<int>>& matrix, int n, int m) {
 
     bool exploded = true;
-    
-    while(exploded) {
-        exploded = false;
-        for (int col = 0; col < n; col++) {
-            stack<int> stk;
-            int count = 1;
-            
-            for (int row = 0; row < n; row++) {
-                if (!stk.empty() && matrix[row][col] != 0 && stk.top() == matrix[row][col]) {
-                    count++;
-                } 
-                else {
-                    if (count >= m && !stk.empty()) {
-                        for (int i = 0; i < count; i++) {
-                            stk.pop();
-                        }
-                        exploded = true;
-                    }
-                    count = 1;
+
+    if (m == 1) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] != 0) {
+                    matrix[i][j] = 0;
+                    exploded = true;
                 }
-                stk.push(matrix[row][col]);
             }
-            
-            if (count >= m && !stk.empty()) {
-                for (int i = 0; i < count; i++) {
+        }
+    }
+    else {
+        while(exploded) {
+            exploded = false;
+            for (int col = 0; col < n; col++) {
+                stack<int> stk;
+                int count = 1;
+                
+                for (int row = 0; row < n; row++) {
+                    if (!stk.empty() && matrix[row][col] != 0 && stk.top() == matrix[row][col]) {
+                        count++;
+                    } 
+                    else {
+                        if (count >= m && !stk.empty()) {
+                            for (int i = 0; i < count; i++) {
+                                stk.pop();
+                            }
+                            exploded = true;
+                        }
+                        count = 1;
+                    }
+                    stk.push(matrix[row][col]);
+                }
+                
+                if (count >= m && !stk.empty()) {
+                    for (int i = 0; i < count; i++) {
+                        stk.pop();
+                    }
+                }
+
+                int idx = n - 1;
+
+                while (!stk.empty()) {
+                    matrix[idx--][col] = stk.top();
                     stk.pop();
                 }
-            }
-
-            int idx = n - 1;
-
-            while (!stk.empty()) {
-                matrix[idx--][col] = stk.top();
-                stk.pop();
-            }
-            
-            while (idx >= 0) {
-                matrix[idx--][col] = 0;
+                
+                while (idx >= 0) {
+                    matrix[idx--][col] = 0;
+                }
             }
         }
     }
