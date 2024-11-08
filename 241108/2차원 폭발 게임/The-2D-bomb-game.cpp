@@ -38,9 +38,9 @@ void explodeBombs(vector<vector<int>>& matrix, int n, int m) {
                 else {
                     if (count >= m && !stk.empty()) {
                         for (int i = 0; i < count; i++) {
-                            exploded = true;
                             stk.pop();
                         }
+                        exploded = true;
                     }
                     count = 1;
                 }
@@ -50,9 +50,9 @@ void explodeBombs(vector<vector<int>>& matrix, int n, int m) {
             if (count >= m && !stk.empty()) {
                 for (int i = 0; i < count; i++) {
                     stk.pop();
-                    exploded = true;
                 }
             }
+
             int idx = n - 1;
 
             while (!stk.empty()) {
