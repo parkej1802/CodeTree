@@ -28,7 +28,7 @@ void explodeBombs(vector<vector<int>>& matrix, int n, int m) {
         int count = 1;
         
         for (int row = 0; row < n; row++) {
-            if (!stk.empty() && stk.top() == matrix[row][col]) {
+            if (!stk.empty() && matrix[row][col] != 0 && stk.top() == matrix[row][col]) {
                 count++;
             } 
             else {
@@ -54,11 +54,10 @@ void explodeBombs(vector<vector<int>>& matrix, int n, int m) {
             matrix[idx--][col] = stk.top();
             stk.pop();
         }
-
+        
         while (idx >= 0) {
             matrix[idx--][col] = 0;
         }
-        
     }
 }
 
@@ -76,7 +75,7 @@ void rotateMatrix(vector<vector<int>>& matrix, int n) {
 
 int twoDimensionalExplosionGame(int n, int m, int k, vector<vector<int>>& matrix) {
 
-    for (int times = 0; times < k; times++) {
+    for (int times = 0; times <= k; times++) {
         explodeBombs(matrix, n, m);
         rotateMatrix(matrix, n);
         applyGravity(matrix, n);
@@ -112,6 +111,7 @@ int main() {
     cout << result;
 
     
+    
     /*
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -120,6 +120,7 @@ int main() {
         cout << endl;
     } 
     */
+    
     
 
     return 0;
