@@ -9,38 +9,41 @@ void crossExplosion(int n, int m, vector<vector<int>>& matrix, vector<int> c) {
 
     for (int i = 0; i < m; i++) {
         int col = c[i] - 1;
+        
+        int explosionRange = 0, newRow = 0;
 
         for (int row = 0; row < n; row++) {
-            int explosionRange = matrix[row][col];
-            matrix[row][col] = 0;
+            if (matrix[row][col] != 0) {
+                explosionRange = matrix[row][col];
+                matrix[row][col] = 0;
+                newRow = row;
+                break;
+            }
+        }
 
-            for (int j = 1; j < explosionRange; j++) {
-                for (int a = 0; a < 4; a++) {
-                    int nx = dx[a] * (j) + col;
-                    int ny = dy[a] * (j) + row;
+        for (int j = 1; j < explosionRange; j++) {
+            for (int a = 0; a < 4; a++) {
+                int nx = dx[a] * (j) + col;
+                int ny = dy[a] * (j) + newRow;
 
-                    if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
-                        matrix[ny][nx] = 0;
-                    }
+                if (ny >= 0 && ny < n && nx >= 0 && nx < n) {
+                    matrix[ny][nx] = 0;
                 }
             }
+        }
 
-            for (int co = 0; co < n; co++) {
-                int emptyRow = n - 1;
-                for (int ro = n - 1; ro >= 0; ro--) {
-                    if (matrix[ro][co] != 0) {
-                        matrix[emptyRow][co] = matrix[ro][co];
-                        if (emptyRow != ro) {
-                            matrix[ro][co] = 0;
-                        }
-                        emptyRow--;
+        for (int co = 0; co < n; co++) {
+            int emptyRow = n - 1;
+            for (int ro = n - 1; ro >= 0; ro--) {
+                if (matrix[ro][co] != 0) {
+                    matrix[emptyRow][co] = matrix[ro][co];
+                    if (emptyRow != ro) {
+                        matrix[ro][co] = 0;
                     }
+                    emptyRow--;
                 }
             }
-
-        } 
-        
-        
+        }
     }
 }
 
