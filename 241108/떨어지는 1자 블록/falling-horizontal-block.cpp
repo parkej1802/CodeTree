@@ -8,7 +8,10 @@ void fallingBlock(int n, int m, int k, vector<vector<int>>& matrix) {
 
     for (int i = 0; i < n; i++) {
         for (int j = k - 1; j < k + m - 1; j++) {
-            if (i + 1 < n) {
+            if (i == n - 1) {
+                touch = true;
+            }
+            else if (i + 1 < n) {
                 if (matrix[i + 1][j] == 1) {
                     touch = true;
                 }
