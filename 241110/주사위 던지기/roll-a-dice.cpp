@@ -17,7 +17,7 @@ int rollLeft(int diceTopNum) {
     right1 = bottom;
     bottom = left1;
     left1 = diceTopNum;
-    return bottom;
+    return top;
 }
 
 int rollRight(int diceTopNum) {
@@ -25,7 +25,7 @@ int rollRight(int diceTopNum) {
     left1 = bottom;
     bottom = right1;
     right1 = diceTopNum;
-    return bottom;
+    return top;
 }
 
 int rollUp(int diceTopNum) {
@@ -33,7 +33,7 @@ int rollUp(int diceTopNum) {
     front = bottom;
     bottom = back;
     back = diceTopNum;
-    return bottom;
+    return top;
 }
 
 int rollDown(int diceTopNum) {
@@ -41,7 +41,7 @@ int rollDown(int diceTopNum) {
     back = bottom;
     bottom = front;
     front = diceTopNum;
-    return bottom;
+    return top;
 }
 
 void function(vector<vector<int>>& matrix, int n, int dirNum, int& row, int& col, int& topNum) {
@@ -62,7 +62,7 @@ void function(vector<vector<int>>& matrix, int n, int dirNum, int& row, int& col
         if (dirNum == 1) {
             num = rollDown(topNum);
         }
-        matrix[nextRow][nextCol] = num;
+        matrix[nextRow][nextCol] = 7 - num;
         topNum = num;
         row = nextRow;
         col = nextCol;
