@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
+
 using namespace std;
 
 int dy[4] = {-1, 1, 0, 0};
@@ -21,8 +23,8 @@ int countBombs(int n, int m, int r, int c) {
                 
                 if (matrix[i][j] == 1) {
                     for (int dir = 0; dir < 4; dir++) {
-                        int ny = dy[dir] * sec + i;
-                        int nx = dx[dir] * sec + j;
+                        int ny = dy[dir] * pow(2, sec - 1) + i;
+                        int nx = dx[dir] * pow(2, sec - 1) + j;
 
                         if (ny >= 0 && ny < n && nx < n && nx >= 0 && temp[ny][nx] != 1) {
                             temp[ny][nx] = 1;
