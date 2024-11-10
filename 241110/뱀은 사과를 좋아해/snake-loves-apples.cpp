@@ -8,22 +8,34 @@ int dx[4] = {0, 0, -1, 1};
 
 pair<int, bool> function(vector<vector<int>>& matrix, int n, int& row, int& col, int dirNum, int moveTimes, queue<pair<int, int>>& body) {
     int time = 0;
+    
+
     for (int j = 0; j < moveTimes; j++) {
         int ny = dy[dirNum] + row;
         int nx = dx[dirNum] + col;
         time++;
         if (ny < n && ny >= 0 && nx < n && nx >= 0) {
+            queue<pair<int, int>> q;
+            pair<int, int> tail = body.front();
+            int tempR = tail.first, tempC = tail.second;
+            body.pop();
+            matrix[tempR][tempC] = 0;
+
             if (matrix[ny][nx] == 1) {
+                q.push({tempR, tempC});
                 body.push({ny, nx});
+                while(!body.empty()) {
+                    q.push(body.front());
+                    body.pop();
+                }
+                body = q;
+                matrix[tempR][tempC] = 2;
                 matrix[ny][nx] = 2;
             }
             else if (matrix[ny][nx] == 2) {
                 return {time, false};
             }
             else {
-                pair<int, int> tail = body.front();
-                matrix[tail.first][tail.second] = 0;
-                body.pop();
                 body.push({ny, nx});
                 matrix[ny][nx] = 2;
             }
