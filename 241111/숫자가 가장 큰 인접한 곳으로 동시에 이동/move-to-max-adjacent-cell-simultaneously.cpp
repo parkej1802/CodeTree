@@ -12,6 +12,7 @@ void print(vector<vector<int>> matrix, int n) {
         }
         cout << endl;
     }
+    cout << "----------------------------------" << endl;
 }
 
 int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pair<int, int>> marbles) {
@@ -39,8 +40,7 @@ int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pai
 
                 if (ny >= 0 && ny < n && nx >= 0 && nx < n) {
                     val = matrix[ny][nx];
-                    if (maxVal < val) {
-                        
+                    if (maxVal < val) {                
                         maxVal = val;
                         row = ny;
                         col = nx;
@@ -53,6 +53,7 @@ int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pai
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (nextTemp[i][j] >= 2) {
+                    m -= nextTemp[i][j];
                     nextTemp[i][j] = 0;
                 }
             }
