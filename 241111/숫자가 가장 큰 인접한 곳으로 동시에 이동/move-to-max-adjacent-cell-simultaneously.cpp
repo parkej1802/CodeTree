@@ -54,7 +54,7 @@ int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pai
             if (moved) {
                 nextTemp[row][col] += 1;
             }
-           
+            moved = false;
             marbles[i] = {row + 1, col + 1};
         }
         for (int i = 0; i < n; i++) {
