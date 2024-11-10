@@ -53,6 +53,8 @@ int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pai
             nextTemp[row][col] += 1;
             if (nextTemp[row][col] >= 2) {
                 marbles.erase(marbles.begin() + i);
+                m--;
+                i--;
             }
             marbles[i] = {row + 1, col + 1};
             //print(nextTemp, n);
@@ -60,7 +62,6 @@ int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pai
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (nextTemp[i][j] >= 2) {
-                    m -= nextTemp[i][j];
                     
                     nextTemp[i][j] = 0;
                 }
