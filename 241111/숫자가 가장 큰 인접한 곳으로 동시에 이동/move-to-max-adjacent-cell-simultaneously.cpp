@@ -25,8 +25,11 @@ int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pai
         temp[mRow - 1][mCol - 1] = 1;
     }
 
+    //print(temp, n);
+
     for (int sec = 0; sec < t; sec++) {
         vector<vector<int>> nextTemp(n, vector<int>(n, 0));
+        
         for (int i = 0; i < m; i++) {
             maxVal = 0;
             auto [mRow, mCol] = marbles[i];
@@ -48,17 +51,24 @@ int moveToLargestNum(int n, int m, int t, vector<vector<int>> matrix, vector<pai
                 }
             }
             nextTemp[row][col] += 1;
+            if (nextTemp[row][col] >= 2) {
+                marbles.erase(marbles.begin() + i);
+            }
             marbles[i] = {row + 1, col + 1};
+            //print(nextTemp, n);
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (nextTemp[i][j] >= 2) {
                     m -= nextTemp[i][j];
+                    
                     nextTemp[i][j] = 0;
                 }
             }
         }
+        
         temp = nextTemp;
+        //print(temp, n);
     }
 
     for (int i = 0; i < n; i++) {
