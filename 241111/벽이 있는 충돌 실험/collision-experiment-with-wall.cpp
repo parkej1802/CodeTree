@@ -31,7 +31,7 @@ int getMarbleNum(int t, int n, int m, vector<pair<int, int>> pos, vector<char> d
     int r, c, dirNum;
     char d;
 
-    for (int time = 0; time < 1000; time++) {
+    for (int time = 0; time < 2 * n; time++) {
         vector<vector<Position>> tempMatrix(n, vector<Position>(n, {0, ' '}));
 
         for (int row = 0; row < n; row++) {
