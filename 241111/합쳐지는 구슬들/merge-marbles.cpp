@@ -81,19 +81,20 @@ pair<int, int> getMarbleNum(int t, int n, int m, vector<pair<int, int>> pos, vec
                     tempMatrix[ny][nx].weight += matrix[row][col].weight;
                     tempMatrix[ny][nx].id = mID;
                     tempMatrix[ny][nx].ids.push_back(mID);
-
+                    tempMatrix[ny][nx].dir = d;
                     for (int a = 0; a < tempMatrix[ny][nx].ids.size(); a++) {
                         for (int b = 0; b < weightID.size(); b++) {
                             if (tempMatrix[ny][nx].ids[a] == weightID[b].id) {
-                                if (weig < weightID[b].weight) {
-                                    weig = weightID[b].weight;
+                                if (tempMatrix[ny][nx].weight < weightID[b].weight) {
+                                    tempMatrix[ny][nx].weight = weightID[b].weight;
                                     tempMatrix[ny][nx].dir = weightID[b].dir;
                                     tempMatrix[ny][nx].id = weightID[b].id;
                                 }
                             }
                         }
                     }
-                    tempMatrix[ny][nx].dir = d;
+                    
+                    
                     
                 
                 }
