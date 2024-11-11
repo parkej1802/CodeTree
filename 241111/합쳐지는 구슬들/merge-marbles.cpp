@@ -65,12 +65,23 @@ pair<int, int> getMarbleNum(int t, int n, int m, vector<pair<int, int>> pos, vec
                     }
 
                     tempMatrix[ny][nx].hasMarble += 1;
-                    for (int a = 0; a < tempMatrix[ny][nx].hasMarble; a++) {
-                        if (tempMatrix[row][col].weight >= weig) {
-                            weig = tempMatrix[row][col].weight;
-                            d = tempMatrix[row][col].dir;
+                    if (tempMatrix[ny][nx].hasMarble == 2) {
+                        for (int a = 0; a < 2; a++) {
+                            if (tempMatrix[row][col].weight > tempMatrix[ny][nx].weight) {
+                                d = tempMatrix[row][col].dir;
+                                weig = tempMatrix[row][col].weight;
+                            }
                         }
                     }
+                    if (tempMatrix[ny][nx].hasMarble > 2) {
+                        for (int a = 0; a < tempMatrix[ny][nx].hasMarble; a++) {
+                            if (tempMatrix[row][col].weight > weig) {
+                                weig = tempMatrix[row][col].weight;
+                                d = tempMatrix[row][col].dir;
+                            }
+                        }
+                    }
+                    
                     tempMatrix[ny][nx].weight += matrix[row][col].weight;
                     tempMatrix[ny][nx].dir = d;
                 }
