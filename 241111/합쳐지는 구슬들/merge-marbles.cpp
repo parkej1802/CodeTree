@@ -45,10 +45,11 @@ pair<int, int> getMarbleNum(int t, int n, int m, vector<pair<int, int>> pos, vec
 
     for (int time = 0; time < t; time++) {
         vector<vector<Position>> tempMatrix(n, vector<Position>(n, {0, 0, ' ', 0, vector<int>()}));
-        weig = 0;
+       
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
                 if (matrix[row][col].hasMarble == 1) {
+                    weig = 0;
                     int mID = matrix[row][col].id;
                     d = matrix[row][col].dir;
                     if (d == 'L') {
