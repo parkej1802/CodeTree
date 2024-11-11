@@ -6,10 +6,19 @@ int dy[4] = {-1, 1, 0, 0};
 int dx[4] = {0, 0, -1, 1};
 
 struct Position {
+    int id;
     int hasMarble;
     char dir;
     int weight;
+    vector<int> ids;
 };
+
+struct mPos {
+    int id;
+    char dir;
+    int weight;
+};
+
 
 void print(vector<vector<Position>> matrix, int n) {
     for (int i = 0; i < n; i++) {
@@ -23,10 +32,11 @@ void print(vector<vector<Position>> matrix, int n) {
 
 pair<int, int> getMarbleNum(int t, int n, int m, vector<pair<int, int>> pos, vector<char> dir, vector<int> weight) {
 
-    vector<vector<Position>> matrix(n, vector<Position>(n, {0, ' ', 0}));
-
+    vector<vector<Position>> matrix(n, vector<Position>(n, {0, 0, ' ', 0, vector<int>()}));
+    vector<mPos> weightID;
     for (int i = 0; i < pos.size(); i++) {
-        matrix[pos[i].first - 1][pos[i].second - 1] = {1, dir[i], weight[i]};
+        matrix[pos[i].first - 1][pos[i].second - 1] = {i, 1, dir[i], weight[i], vector<int>()};
+        weightID.push_back({i, dir[i], weight[i]});
     }
 
     int r, c, dirNum;
@@ -34,11 +44,12 @@ pair<int, int> getMarbleNum(int t, int n, int m, vector<pair<int, int>> pos, vec
     int weig = 0;
 
     for (int time = 0; time < t; time++) {
-        vector<vector<Position>> tempMatrix(n, vector<Position>(n, {0, ' ', 0}));
+        vector<vector<Position>> tempMatrix(n, vector<Position>(n, {0, 0, ' ', 0, vector<int>()}));
         weig = 0;
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
                 if (matrix[row][col].hasMarble == 1) {
+                    int mID = matrix[row][col].id;
                     d = matrix[row][col].dir;
                     if (d == 'L') {
                         dirNum = 2;
@@ -65,25 +76,25 @@ pair<int, int> getMarbleNum(int t, int n, int m, vector<pair<int, int>> pos, vec
                     }
 
                     tempMatrix[ny][nx].hasMarble += 1;
-                    if (tempMatrix[ny][nx].hasMarble == 2) {
-                        for (int a = 0; a < 2; a++) {
-                            if (tempMatrix[row][col].weight > tempMatrix[ny][nx].weight) {
-                                d = tempMatrix[row][col].dir;
-                                weig = tempMatrix[row][col].weight;
-                            }
-                        }
-                    }
-                    if (tempMatrix[ny][nx].hasMarble > 2) {
-                        for (int a = 0; a < tempMatrix[ny][nx].hasMarble; a++) {
-                            if (tempMatrix[row][col].weight > weig) {
-                                weig = tempMatrix[row][col].weight;
-                                d = tempMatrix[row][col].dir;
-                            }
-                        }
-                    }
                     
                     tempMatrix[ny][nx].weight += matrix[row][col].weight;
+                    tempMatrix[ny][nx].id = mID;
+                    tempMatrix[ny][nx].ids.push_back(mID);
+
+                    for (int a = 0; a < tempMatrix[ny][nx].ids.size(); a++) {
+                        for (int b = 0; b < weightID.size(); b++) {
+                            if (tempMatrix[ny][nx].ids[a] == weightID[b].id) {
+                                if (weig < weightID[b].weight) {
+                                    weig = weightID[b].weight;
+                                    tempMatrix[ny][nx].dir = weightID[b].dir;
+                                    tempMatrix[ny][nx].id = weightID[b].id;
+                                }
+                            }
+                        }
+                    }
                     tempMatrix[ny][nx].dir = d;
+                    
+                
                 }
             }
         }
