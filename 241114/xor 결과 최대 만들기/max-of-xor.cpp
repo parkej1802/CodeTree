@@ -8,8 +8,8 @@ vector<int> nums;
 int n, m, k, maxValue = 0;
 
 int getMaxValue() {
-    int result = list[0];
-    for (int i = 1; i < nums.size(); i++) {
+    int result = 0;
+    for (int i = 0; i < nums.size(); i++) {
         result ^= nums[i];
     }
     return result;
