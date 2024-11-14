@@ -25,7 +25,7 @@ void backTracking(int current, int count) {
 
     for (int i = count; i < n; i++) {
         nums.push_back(list[i]);
-        backTracking(current + 1, count + 1);
+        backTracking(current + 1, i + 1);
         nums.pop_back();
     }
 } 
