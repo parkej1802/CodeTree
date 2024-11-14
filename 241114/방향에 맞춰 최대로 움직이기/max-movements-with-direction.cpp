@@ -24,10 +24,8 @@ void backTracking(int y, int x, int current) {
         int ny = dir[d][0] + y;
         int nx = dir[d][1] + x;
 
-        if (ny >= 0 && ny < n && nx >= 0 && nx < n  && !visited[ny][nx] && matrix[ny][nx] > currentNum) {
-            visited[ny][nx] = true;
+        if (ny >= 0 && ny < n && nx >= 0 && nx < n && matrix[ny][nx] > currentNum) {
             backTracking(ny, nx, current + 1);
-            visited[ny][nx] = false;
         }
 
         y = ny;
@@ -57,7 +55,6 @@ int main() {
 
     cin >> r >> c;
 
-    visited[r - 1][c - 1] = true;
     backTracking(r - 1, c - 1, 0);
 
     cout << maxMove;
