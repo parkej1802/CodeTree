@@ -41,24 +41,29 @@ pair<int, int> getPosNextMaxNumber(int num) {
     return {-1, -1};
 }
 
-bool reachable(int row, int col, int num, pair<int, int> pos, vector<vector<bool>> visit) {
+bool reachable(int row, int col, int num, pair<int, int> pos) {
+    vector<vector<bool>> localVisited = visited;
+    queue<pair<int, int>> q;
+    q.push({row, col});
+    localVisited[row][col] = true;
 
-    if (row == pos.first && col == pos.second) {
-        return true;
-    }
+    while (!q.empty()) {
+        int curRow = q.front().first;
+        int curCol = q.front().second;
+        q.pop();
 
-    for (int i = 0; i < 4; i++) {
-        int ny = dy[i] + row;
-        int nx = dx[i] + col;
+        if (curRow == pos.first && curCol == pos.second) return true;
 
-        if (inRange(ny, nx, num, visit)) {
-            visit[ny][nx] = true;
-            if (reachable(ny, nx, num, pos, visit)) {
-                return true;
+        for (int i = 0; i < 4; i++) {
+            int ny = curRow + dy[i];
+            int nx = curCol + dx[i];
+
+            if (inRange(ny, nx, num, localVisited)) {
+                localVisited[ny][nx] = true;
+                q.push({ny, nx});
             }
         }
     }
-
     return false;
 }
 
@@ -82,14 +87,17 @@ pair<int, int> bfs(int row, int col) {
 
         int nextNum = getNextMaxNumber(num);
         pair<int, int> nextPos = getPosNextMaxNumber(nextNum);
-        if (nextPos.first == -1) break;
+        if (nextPos.first == -1 || nextNum == 0) break;
         
-        while (!reachable(row, col, num, nextPos, visited)) {
+        while (!reachable(row, col, num, nextPos)) {
             num = nextNum;
             nextNum = getNextMaxNumber(num);
             nextPos = getPosNextMaxNumber(nextNum);
+            if (nextPos.first == -1 || nextNum == 0) break;
         }
 
+        if (nextPos.first == -1 || nextNum == 0) break;
+  
         q.push(nextPos);
         visited[nextPos.first][nextPos.second] = true;
         result = {nextPos.first, nextPos.second};
