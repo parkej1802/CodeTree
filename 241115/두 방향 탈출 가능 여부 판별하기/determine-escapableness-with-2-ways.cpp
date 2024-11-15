@@ -13,20 +13,22 @@ int escape = 0;
 
 int dfs(int row, int col) {
 
+    if (row == n - 1 && col == m - 1) {
+        return 1;
+    }
+
     for (int i = 0; i < 2; i++) {
         int ny = dy[i] + row;
         int nx = dx[i] + col;
-        if (ny >= 0 && ny < n && nx >= 0 && nx < n && matrix[ny][nx] == 1 && !visited[ny][nx]) {
-            if (ny == n - 1 && nx == m - 1) {
-                return escape++;
-            }
+        if (ny >= 0 && ny < n && nx >= 0 && nx < m && matrix[ny][nx] == 1 && !visited[ny][nx]) {
             visited[ny][nx] = true;
-            dfs(ny, nx);
-
+            if (dfs(ny, nx)) {
+                return 1;
+            }
         }
     }
 
-    return escape;
+    return 0;
 
 }
 
@@ -43,6 +45,7 @@ int main() {
         }
     }
 
+    visited[0][0] = true;
     int result = dfs(0, 0);
 
     cout << result;
