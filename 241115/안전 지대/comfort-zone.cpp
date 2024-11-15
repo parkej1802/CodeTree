@@ -43,7 +43,7 @@ void safePosition() {
 
     int result = 0;
 
-    for (int k = 1; k <= m; k++) {
+    for (int k = 1; k <= 100; k++) {
         setZeroMatrix(k);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
