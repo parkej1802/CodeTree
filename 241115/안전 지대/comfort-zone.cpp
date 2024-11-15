@@ -80,7 +80,7 @@ int main() {
 
     safePosition();
 
-    cout << maxGroup << " " << kMax;
+    cout << kMax << " " << maxGroup;
 
     return 0;
 }
