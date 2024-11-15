@@ -13,7 +13,7 @@ vector<vector<int>> matrix;
 vector<vector<bool>> visited;
 vector<vector<bool>> visitedCopy;
 
-bool inRange(int row, int col, int num, vector<vector<bool>> visit) {
+bool inRange(int row, int col, int num, vector<vector<bool>>& visit) {
     return row >= 0 && row < n && col >= 0 && col < n && !visit[row][col] && matrix[row][col] < num;
 }
 
