@@ -82,6 +82,7 @@ pair<int, int> bfs(int row, int col) {
 
         int nextNum = getNextMaxNumber(num);
         pair<int, int> nextPos = getPosNextMaxNumber(nextNum);
+        if (nextPos.first == -1) break;
         
         while (!reachable(row, col, num, nextPos, visited)) {
             num = nextNum;
