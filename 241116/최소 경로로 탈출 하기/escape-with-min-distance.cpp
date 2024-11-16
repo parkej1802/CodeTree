@@ -14,7 +14,7 @@ int dy[4] = {-1, 1, 0, 0};
 int dx[4] = {0, 0, -1, 1};
 
 bool inRange(int row, int col) {
-    return row >= 0 && row < n && col >= 0 && col < n && !visited[row][col] && matrix[row][col] == 1;
+    return row >= 0 && row < n && col >= 0 && col < m && !visited[row][col] && matrix[row][col] == 1;
 }
 
 int bfs(int row, int col) {
