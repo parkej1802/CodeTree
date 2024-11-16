@@ -24,7 +24,7 @@ bool inRange(int row, int col, int num, vector<vector<bool>> visit) {
 }
 
 pair<int, int> getNextNumPos(int row, int col, int num, vector<vector<bool>> visit) {
-    vector<vector<bool>> localVisit(n, vector<bool>(n, false));
+    vector<vector<bool>> localVisit = visit;
     queue<pair<int, int>> q;
     q.push({row, col});
     localVisit[row][col] = true;
