@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int n, k, m, r, c;
+int n, k, m, r, c, result = 1;;
 vector<vector<int>> matrix;
 vector<vector<bool>> visited;
 vector<pair<int, int>> pos;
@@ -12,22 +12,23 @@ vector<pair<int, int>> rockPos;
 vector<pair<int, int>> numRockPos;
 vector<vector<pair<int, int>>> allComb;
 vector<vector<int>> copyMatrix;
+vector<vector<bool>> copyVisited;
 
 int dy[4] = {-1, 1, 0, 0};
 int dx[4] = {0, 0, -1, 1};
 
-bool inRange(int row, int col, vector<vector<bool>>& visit) {
-    return row >= 0 && row < n && col >= 0 && col < n && !visit[row][col] && matrix[row][col] == 0;
+bool inRange(int row, int col) {
+    return row >= 0 && row < n && col >= 0 && col < n && !visited[row][col] && matrix[row][col] == 0;
 }
 
-int bfs(int row, int col, vector<vector<bool>> visit) {
-    vector<vector<bool>> localVisit = visit;
+int bfs(int row, int col) {
     queue<pair<int, int>> q;
 
     q.push({row, col});
-    localVisit[row][col] = true;
-    int result = 1;
-
+    result = 1;
+    if (visited[row][col]) result = 0;
+    visited[row][col] = true;
+    
     while (!q.empty()) {
         int r = q.front().first;
         int c = q.front().second;
@@ -37,9 +38,9 @@ int bfs(int row, int col, vector<vector<bool>> visit) {
             int ny = dy[i] + r;
             int nx = dx[i] + c;
 
-            if (inRange(ny, nx, localVisit)) {
+            if (inRange(ny, nx)) {
                 q.push({ny, nx});
-                localVisit[ny][nx] = true;
+                visited[ny][nx] = true;
                 result++;
             }
         }
@@ -49,16 +50,21 @@ int bfs(int row, int col, vector<vector<bool>> visit) {
 
 int removeRock() {
     int maxValue = -1;
+    int sum = 0;
     for (int i = 0; i < allComb.size(); i++) {
         matrix = copyMatrix;
+        visited = copyVisited;
         for (int j = 0; j < m; j++) {
             matrix[allComb[i][j].first][allComb[i][j].second] = 0;
+            visited[allComb[i][j].first][allComb[i][j].second] = false;
         }
+        
         for (int a = 0; a < k; a++) {
-            int rs = bfs(pos[a].first, pos[a].second, visited);
-            maxValue = max(rs, maxValue);
-            
+            int rs = bfs(pos[a].first, pos[a].second);
+            sum += rs;
         }
+        maxValue = max(maxValue, sum);
+        sum = 0;
     }
     return maxValue;
 }
@@ -79,8 +85,10 @@ void rockComb(int current, int count) {
 void getRockPosition() {
     for (int i = 0; i < n; i++) 
         for (int j = 0; j < n; j++) 
-            if (matrix[i][j] == 1) 
+            if (matrix[i][j] == 1) {
                 rockPos.push_back({i,j});
+                visited[i][j] = true;
+            }
 }
 
 int main() {
@@ -103,6 +111,8 @@ int main() {
     }
 
     getRockPosition();
+    copyVisited = visited;
+
     rockComb(0, 0);
     
     int result = removeRock();
