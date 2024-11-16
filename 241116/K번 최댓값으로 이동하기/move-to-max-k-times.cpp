@@ -9,63 +9,65 @@ int n, k, r, c;
 int dy[4] = {-1, 1, 0, 0};
 int dx[4] = {0, 0, -1, 1};
 
+struct Pos {
+    int row;
+    int col;
+    int num;
+};
+
 vector<vector<int>> matrix;
 vector<vector<bool>> visited;
 vector<vector<bool>> visitedCopy;
 
-bool inRange(int row, int col, int num, vector<vector<bool>>& visit) {
+bool inRange(int row, int col, int num, vector<vector<bool>> visit) {
     return row >= 0 && row < n && col >= 0 && col < n && !visit[row][col] && matrix[row][col] < num;
 }
 
-int getNextMaxNumber(int num) {
-    int maxNum = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (matrix[i][j] < num) {
-                maxNum = max(maxNum, matrix[i][j]);
-            }
-        }
-    }
-
-    return maxNum;
-}
-
-pair<int, int> getPosNextMaxNumber(int num) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (num != 0 && matrix[i][j] == num) {
-                return {i, j};
-            }
-        }
-    }
-    return {-1, -1};
-}
-
-bool reachable(int row, int col, int num, pair<int, int> pos) {
-    vector<vector<bool>> localVisited = visited;
+pair<int, int> getNextNumPos(int row, int col, int num, vector<vector<bool>> visit) {
+    vector<vector<bool>> localVisit(n, vector<bool>(n, false));
     queue<pair<int, int>> q;
     q.push({row, col});
-    localVisited[row][col] = true;
+    localVisit[row][col] = true;
+
+    int maxValue = -1;
+    int minRow = -1;
+    int minCol = -1;
 
     while (!q.empty()) {
         int curRow = q.front().first;
         int curCol = q.front().second;
         q.pop();
 
-        if (curRow == pos.first && curCol == pos.second) return true;
-
         for (int i = 0; i < 4; i++) {
             int ny = curRow + dy[i];
             int nx = curCol + dx[i];
 
-            if (inRange(ny, nx, num, localVisited)) {
-                localVisited[ny][nx] = true;
+            if (inRange(ny, nx, num, localVisit)) {
+                localVisit[ny][nx] = true;
+                int currentValue = matrix[ny][nx];
+
+                if (currentValue > maxValue) {
+                    maxValue = currentValue;
+                    minRow = ny;
+                    minCol = nx;
+                } else if (currentValue == maxValue && ny < minRow) {
+                    minRow = ny;
+                    minCol = nx;
+                }
+                else if (currentValue == maxValue && ny == minRow && nx < minCol) {
+                    minRow = ny;
+                    minCol = nx;
+                }
+
                 q.push({ny, nx});
             }
         }
     }
-    return false;
+
+    return {minRow, minCol};
 }
+
+
 
 pair<int, int> bfs(int row, int col) {
 
@@ -85,18 +87,9 @@ pair<int, int> bfs(int row, int col) {
             return {row, col};
         }
 
-        int nextNum = getNextMaxNumber(num);
-        pair<int, int> nextPos = getPosNextMaxNumber(nextNum);
-        if (nextPos.first == -1 || nextNum == 0) break;
-        
-        while (!reachable(row, col, num, nextPos)) {
-            num = nextNum;
-            nextNum = getNextMaxNumber(num);
-            nextPos = getPosNextMaxNumber(nextNum);
-            if (nextPos.first == -1 || nextNum == 0) break;
-        }
+        pair<int, int> nextPos = getNextNumPos(row, col, num, visited);
 
-        if (nextPos.first == -1 || nextNum == 0) break;
+        if (nextPos.first == -1) break;
   
         q.push(nextPos);
         visited[nextPos.first][nextPos.second] = true;
