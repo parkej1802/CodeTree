@@ -17,13 +17,12 @@ struct Pos {
 
 vector<vector<int>> matrix;
 vector<vector<bool>> visited;
-vector<vector<bool>> visitedCopy;
 
-bool inRange(int row, int col, int num, vector<vector<bool>> visit) {
+bool inRange(int row, int col, int num, const vector<vector<bool>>& visit) {
     return row >= 0 && row < n && col >= 0 && col < n && !visit[row][col] && matrix[row][col] < num;
 }
 
-pair<int, int> getNextNumPos(int row, int col, int num, vector<vector<bool>> visit) {
+pair<int, int> getNextNumPos(int row, int col, int num, const vector<vector<bool>>& visit) {
     vector<vector<bool>> localVisit = visit;
     queue<pair<int, int>> q;
     q.push({row, col});
@@ -67,10 +66,7 @@ pair<int, int> getNextNumPos(int row, int col, int num, vector<vector<bool>> vis
     return {minRow, minCol};
 }
 
-
-
 pair<int, int> bfs(int row, int col) {
-
     pair<int, int> result = {row, col};
     queue<pair<int, int>> q;
     q.push({row, col});
@@ -79,15 +75,15 @@ pair<int, int> bfs(int row, int col) {
     int numLoop = 0;
 
     while (!q.empty()) {
-        int row = q.front().first;
-        int col = q.front().second;
+        int curRow = q.front().first;
+        int curCol = q.front().second;
         q.pop();
 
         if (numLoop == k) {
-            return {row, col};
+            return {curRow, curCol};
         }
 
-        pair<int, int> nextPos = getNextNumPos(row, col, num, visited);
+        pair<int, int> nextPos = getNextNumPos(curRow, curCol, num, visited);
 
         if (nextPos.first == -1) break;
   
@@ -101,9 +97,7 @@ pair<int, int> bfs(int row, int col) {
     return result;
 }
 
-
 int main() {
-
     cin >> n >> k;
 
     matrix.resize(n, vector<int>(n));
