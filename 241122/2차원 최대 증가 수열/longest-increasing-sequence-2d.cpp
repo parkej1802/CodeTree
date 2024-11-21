@@ -10,15 +10,18 @@ vector<vector<int>> dp;
 
 int maxIncreasingSeq() {
     dp[0][0] = 1;
-    int result = 0;
+    int result = 1;
+    int startNum = matrix[0][0];
+    
     for (int row = 0; row < n; row++) {
         for (int col = 0; col < m; col++) {
+
             if (row == 0 && col == 0) continue;
 
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {
 
-                    if (matrix[row][col] > matrix[i][j]) {
+                    if (matrix[row][col] > matrix[i][j] && startNum < matrix[row][col]) {
                         dp[row][col] = max(dp[row][col], dp[i][j] + 1);
                         result = max(result, dp[row][col]);
                     }
