@@ -26,6 +26,7 @@ int maxIncreasingSeq() {
             }
         }
     }
+
     return result;
 }
 
@@ -33,8 +34,8 @@ int main() {
     
     cin >> n >> m;
 
-    matrix.resize(n, vector<int>(n));
-    dp.resize(n, vector<int>(n, 1));
+    matrix.resize(n, vector<int>(m));
+    dp.resize(n, vector<int>(m, 1));
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
