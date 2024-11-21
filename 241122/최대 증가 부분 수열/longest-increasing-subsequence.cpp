@@ -19,6 +19,7 @@ int maxSeq() {
             }
         }
     }
+
     int maxValue = 0;
 
     for (int i = 0; i < dp.size(); i++) {
@@ -33,7 +34,7 @@ int main() {
     cin >> n;
 
     seq.resize(n);
-    dp.resize(n, INT_MIN);
+    dp.resize(n, 1);
 
     for (int i = 0; i < n; i++) {
         cin >> seq[i];
