@@ -17,12 +17,14 @@ int maxProfit() {
     int result = dp[0];
 
     for (int i = 1; i < n; i++) {
+        dp[i] = pay[i];
+        
         for (int j = 0; j < i; j++) {
-            dp[i] = pay[i];
             if (list[i].first > list[j].second) {
                 dp[i] = max(dp[i], dp[j] + pay[i]);
             }
         }
+
         result = max(result, dp[i]);
     }
 
@@ -40,8 +42,6 @@ int main() {
         list.push_back({s, e});
         pay.push_back(p);
     }
-
-    sort(list.begin(), list.end());
 
     int result = maxProfit();
 
