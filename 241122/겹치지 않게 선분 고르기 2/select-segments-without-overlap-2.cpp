@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -37,6 +38,7 @@ int main() {
         list.push_back({f, s});
     }
 
+    sort(list.begin(), list.end());
     int result = chooseLine();
 
     cout << result;
