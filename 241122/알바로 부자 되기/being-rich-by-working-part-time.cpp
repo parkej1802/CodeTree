@@ -23,7 +23,7 @@ int maxProfit() {
                 dp[i] = max(dp[i], dp[j] + pay[i]);
             }
         }
-        result = max(result, pay[i]);
+        result = max(result, dp[i]);
     }
 
     return result;
