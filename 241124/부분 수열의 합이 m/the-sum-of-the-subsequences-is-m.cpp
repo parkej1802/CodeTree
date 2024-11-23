@@ -18,8 +18,6 @@ int minSumSeq() {
                 if (dp[j - list[i]] == INT_MAX) continue;
 
                 dp[j] = min(dp[j], dp[j - list[i]] + 1);
-
-            
             }
             
         }
@@ -40,7 +38,7 @@ int main() {
 
     int result = minSumSeq();
 
-    if (result = INT_MAX) {
+    if (result == INT_MAX) {
         cout << -1;
     }
     else {
