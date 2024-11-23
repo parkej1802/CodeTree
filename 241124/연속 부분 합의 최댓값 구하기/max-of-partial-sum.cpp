@@ -9,9 +9,11 @@ vector<int> list;
 vector<int> dp;
 
 int maxSeq() {
-    int result = INT_MIN;
+    
 
     dp[0] = list[0];
+    int result = dp[0];
+    
     for (int i = 1; i < n; i++) {
         dp[i] = max(list[i], list[i] + dp[i - 1]);
         result = max(dp[i], result);
