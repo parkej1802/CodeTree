@@ -22,6 +22,7 @@ int maxCoin() {
             }
         }
     }   
+
     return dp[m];
 }
 
@@ -38,7 +39,7 @@ int main() {
 
     int result = maxCoin();
 
-    if (dp[n] == INT_MIN) {
+    if (dp[m] == INT_MIN) {
         cout << -1;
     }
     else {
