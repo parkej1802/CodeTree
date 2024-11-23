@@ -14,7 +14,7 @@ int oneTwoFiveSum() {
     for (int i = 1; i <= n; i++) {
         for (int j = 0; j < list.size(); j++) {
             if (i >= list[j]) {
-                dp[i] += dp[i - list[j]];
+                dp[i] += dp[i - list[j]] % 10007;
             }
         }
     }
