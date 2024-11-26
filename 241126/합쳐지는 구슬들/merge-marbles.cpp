@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
@@ -43,11 +44,15 @@ void moveMarble() {
     }
 }
 
-
+bool compare(Marble m1, Marble m2) {
+    return m1.id > m2.id;
+}
 
 void collision() {
     vector<vector<vector<Marble>>> matrix(n, vector<vector<Marble>>(n));
-
+    
+    sort(marbles.begin(), marbles.end(), compare);
+    
     for (auto& mar : marbles) {
         matrix[mar.row][mar.col].push_back(mar);
     }
@@ -93,7 +98,6 @@ int main() {
 
     int maxWeight = 0;
     for (auto& hea : marbles) {
-       
         maxWeight = max(maxWeight, hea.weight);
     }
 
