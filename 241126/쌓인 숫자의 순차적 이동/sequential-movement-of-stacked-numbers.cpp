@@ -32,21 +32,24 @@ void moveNum() {
                             int ny = row + dy[dir];
                             int nx = col + dx[dir];
 
-                            if (inRange(ny, nx) && matrix[ny][nx] != 0) {
-                                if (matrix[ny][nx] > maxNum) {
-                                    maxNum = matrix[ny][nx];
-                                    maxRow = ny;
-                                    maxCol = nx;
+                            if (inRange(ny, nx) && !order[ny][nx].empty() ) {
+                                for (int a = 0; a < order[ny][nx].size(); a++) {
+                                    if (order[ny][nx][a] > maxNum) {
+                                        maxNum = order[ny][nx][a];
+                                        maxRow = ny;
+                                        maxCol = nx;
+                                    }
                                 }
+                                
                             }
                         }
-                        matrix[row][col] = 0;
 
                         if (maxRow != row || maxCol != col) {
                             order[maxRow][maxCol].insert(order[maxRow][maxCol].end(), order[row][col].begin() + z, order[row][col].end());
                             order[row][col].erase(order[row][col].begin() + z, order[row][col].end());
+                            break;
                         }
-                     
+
                         break;
                     }
                 }
@@ -80,7 +83,6 @@ int main() {
         cin >> list[i];
     }
 
-
     moveNum();
 
     for (int i = 0; i < n; i++) {
@@ -89,7 +91,7 @@ int main() {
                 cout << "None" << endl;
             }
             else {
-                for (int z = order[i][j].size() - 1; z << order[i][j].size() >= 0; z--) {
+                for (int z = order[i][j].size() - 1; z >= 0; z--) {
                     cout << order[i][j][z] << " ";
                 }
                 cout << endl;
