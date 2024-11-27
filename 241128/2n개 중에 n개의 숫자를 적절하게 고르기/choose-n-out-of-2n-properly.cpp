@@ -26,24 +26,20 @@ int calculateMinSum() {
 
 int minSum = INT_MAX;
 
-void backTracking(int current, int countA, int countB) {
+void backTracking(int current) {
     if (current == 2 * n) {
         int result = calculateMinSum();
         minSum = min(minSum, result);
         return;
     }
 
-    if (countA < n) {
-        groupA.push_back(list[current]);
-        backTracking(current + 1, countA + 1, countB); 
-        groupA.pop_back(); 
-    }
+    groupA.push_back(list[current]);
+    backTracking(current + 1);
+    groupA.pop_back(); 
 
-    if (countB < n) {
-        groupB.push_back(list[current]);
-        backTracking(current + 1, countA, countB + 1);
-        groupB.pop_back();
-    }
+    groupB.push_back(list[current]);
+    backTracking(current + 1); 
+    groupB.pop_back(); 
 }
 
 int main() {
@@ -55,7 +51,7 @@ int main() {
         cin >> list[i];
     }
 
-    backTracking(0, 0, 0);
+    backTracking(0);
 
     cout << minSum;
 
