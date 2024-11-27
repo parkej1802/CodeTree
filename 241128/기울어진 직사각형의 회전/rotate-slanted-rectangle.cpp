@@ -11,14 +11,18 @@ int dy1[4] = {1, 1, -1, -1};
 
 void tiltedRectangleRotation(int n, vector<vector<int>>& matrix, int r, int c, int m1, int m2, int m3, int m4, int dir) {
 
-    if (dir == 0) {
-        int row = r - 1;
-        int col = c - 1;
+    int row = r - 1;
+    int col = c - 1;
 
-        int topX = col + m1 - m2, topY = row - m1 - m2;
-        int bottomX = col, bottomY = row;
-        int leftX = col - m4, leftY = row - m4;
-        int rightX = col + m1, rightY = row - m1;
+    int topX = col + m1 - m2, topY = row - m1 - m2;
+    int bottomX = col, bottomY = row;
+    int leftX = col - m4, leftY = row - m4;
+    int rightX = col + m1, rightY = row - m1;
+
+    int tempBottomX = bottomX, tempBottomY = bottomY;
+
+    if (dir == 0) {
+        
 
         int temp = matrix[row][col];
 
@@ -48,7 +52,8 @@ void tiltedRectangleRotation(int n, vector<vector<int>>& matrix, int r, int c, i
             topY = ny;
             topX = nx;
         }
-        for (int bottomRight = rightX; bottomRight > bottomX + 2; bottomRight--) {
+
+        for (int bottomRight = rightX; bottomRight > tempBottomX; bottomRight--) {
 
             int ny = dy[0] + rightY;
             int nx = dx[0] + rightX;
@@ -57,19 +62,13 @@ void tiltedRectangleRotation(int n, vector<vector<int>>& matrix, int r, int c, i
 
             rightY = ny;
             rightX = nx;
+           
         }
-                
+
         matrix[row - 1][col + 1] = temp;
     }
 
     else {
-        int row = r - 1;
-        int col = c - 1;
-
-        int topX = col + m1 - m2, topY = row - m1 - m2;
-        int bottomX = col, bottomY = row;
-        int leftX = col - m4, leftY = row - m4;
-        int rightX = col + m1, rightY = row - m1;
 
         int temp = matrix[row][col];
 
@@ -100,7 +99,7 @@ void tiltedRectangleRotation(int n, vector<vector<int>>& matrix, int r, int c, i
             topX = nx;
         }
 
-        for (int bottomLeft = leftX; bottomLeft + 2 < bottomX; bottomLeft++) {
+        for (int bottomLeft = leftX; bottomLeft < tempBottomX; bottomLeft++) {
             int ny = dy1[0] + leftY;
             int nx = dx1[0] + leftX;
 
