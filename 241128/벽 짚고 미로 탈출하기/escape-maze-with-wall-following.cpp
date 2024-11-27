@@ -15,9 +15,15 @@ int getMazeTime(int n, int ro, int co, vector<vector<char>> matrix) {
 
     int dir = 0;
     
-    vector<vector<bool>> visited(n, vector<bool>(n, false));
+    vector<vector<vector<bool>>> visited(n, vector<vector<bool>>(n, vector<bool>(4, false)));
 
     while (!escape) {
+
+        if (visited[row][col][dir]) {
+            return -1;
+        }
+
+        visited[row][col][dir] = true;
         
         int rightDir = (dir + 3) % 4;
 
@@ -47,10 +53,6 @@ int getMazeTime(int n, int ro, int co, vector<vector<char>> matrix) {
             row += dy[dir];
             col += dx[dir];
             time++;
-        }
-
-        if (time >  n * n) {
-            return -1;
         }
     }
 
