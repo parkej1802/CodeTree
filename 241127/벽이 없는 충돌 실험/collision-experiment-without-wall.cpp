@@ -59,8 +59,6 @@ int collision(int time) {
         pair<int, int> pos = h.first;
         vector<Marble>& vm = h.second;
 
-        sort(vm.begin(), vm.end(), compare);
-
         if (vm.size() > 1) {
             lastCollision = time;
             
