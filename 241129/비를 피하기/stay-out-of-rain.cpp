@@ -29,7 +29,7 @@ int bfs(int row, int col, vector<vector<bool>> visited) {
         int c = q.front().second;
         q.pop();
 
-        if (matrix[r][c] == 3 && m > numPeople[r][c]) {
+        if (matrix[r][c] == 3) {
             numPeople[r][c]++;
             return dist[r][c];
         }
