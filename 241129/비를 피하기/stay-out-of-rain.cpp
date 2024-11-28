@@ -7,18 +7,17 @@ using namespace std;
 int n, h, m;
 
 vector<vector<int>> matrix;
-vector<vector<int>> numPeople;
 vector<vector<int>> result;
+vector<vector<int>> dist;
 
 int dir[4][2] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 
-bool inRange(int row, int col, vector<vector<bool>> visited) {
+bool inRange(int row, int col, vector<vector<bool>>& visited) {
     return  row >= 0 && row < n && col >= 0 && col < n && matrix[row][col] != 1 && !visited[row][col];
 }
 
-int bfs(int row, int col, vector<vector<bool>> visited) {
-    
-    vector<vector<int>> dist(n, vector<int>(n, 0));
+int bfs(int row, int col) {
+    vector<vector<bool>> visited(n, vector<bool>(n, false));
     queue<pair<int, int>> q;
     q.push({row, col});
     visited[row][col] = true;
@@ -30,7 +29,6 @@ int bfs(int row, int col, vector<vector<bool>> visited) {
         q.pop();
 
         if (matrix[r][c] == 3) {
-            numPeople[r][c]++;
             return dist[r][c];
         }
 
@@ -49,12 +47,12 @@ int bfs(int row, int col, vector<vector<bool>> visited) {
     return -1;
 }
 
-void findPlaceToHide(vector<vector<bool>> visited) {
+void findPlaceToHide() {
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             if (matrix[i][j] == 2) {
-                int distance = bfs(i, j, visited);
+                int distance = bfs(i, j);
                 result[i][j] = distance;
             }
         }
@@ -64,9 +62,8 @@ void findPlaceToHide(vector<vector<bool>> visited) {
 int main() {
     cin >> n >> h >> m;
 
-    vector<vector<bool>> visited(n, vector<bool>(n, false));
     matrix.resize(n, vector<int>(n));
-    numPeople.resize(n, vector<int>(n, 0));
+    dist.resize(n, vector<int>(n, 0));
     result.resize(n, vector<int>(n, 0));
 
     for (int i = 0; i < n; i++) {
@@ -75,7 +72,7 @@ int main() {
         }
     }
 
-    findPlaceToHide(visited);
+    findPlaceToHide();
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
