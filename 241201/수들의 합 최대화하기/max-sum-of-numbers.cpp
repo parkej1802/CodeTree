@@ -5,7 +5,7 @@
 using namespace std;
 
 vector<vector<int>> matrix;
-vector<vector<bool>> visited;
+vector<bool> visited;
 vector<pair<int, int>> list;
 unordered_map<int, int> mapY;
 unordered_map<int, int> mapX;
@@ -22,45 +22,23 @@ void maxSum() {
     maxNum = max(maxNum, sum);
 }
 
-
-bool check() {
-    mapY.clear();
-    mapX.clear();
-
-    for (auto p : list) {
-        mapY[p.first]++;
-        mapX[p.second]++;
-        if (mapY[p.first] > 1) {
-            return false;
-        }
-        if (mapY[p.second] > 1) {
-            return false;
-        }
-    }
-    
-    return true;
-}
-
 void backTrack(int current, int count) {
 
     if (current == n) {
-        if (check()) {
-            maxSum();
-        }
-       
+        maxSum();
         return;
     }
 
-    for (int i = 0; i < n; i++) {
-        for (int j = count; j < n; j++) {
-            if (visited[i][j]) continue;
+    for (int i = count; i < n; i++) {
+       
+        if (visited[i]) continue;
 
-            visited[i][j] = true;
-            list.push_back({i, j});
-            backTrack(current + 1, j + 1);
-            list.pop_back();
-            visited[i][j] = false;
-        }
+        visited[i] = true;
+        list.push_back({current, i});
+        backTrack(current + 1, 0);
+        list.pop_back();
+        visited[i] = false;
+        
     }
 }
 
@@ -69,7 +47,7 @@ int main() {
     cin >> n;
 
     matrix.resize(n, vector<int>(n));
-    visited.resize(n, vector<bool>(n, false));
+    visited.resize(n, false);
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -80,5 +58,6 @@ int main() {
     backTrack(0, 0);
 
     cout << maxNum;
+
     return 0;
 }
