@@ -5,7 +5,7 @@ using namespace std;
 
 int n, m;
 vector<int> list;
-vector<vector<int>> dp;
+vector<vector<long>> dp;
 
 void rightEquation() {
     dp[0][list[0] + 20] = 1;
@@ -34,7 +34,7 @@ int main() {
     cin >> n >> m;
 
     list.resize(n, 0);
-    dp.resize(n + 1, vector<int>(41, 0));
+    dp.resize(n + 1, vector<long>(41, 0));
 
     for (int i = 1; i <= n; i++) {
         cin >> list[i];
