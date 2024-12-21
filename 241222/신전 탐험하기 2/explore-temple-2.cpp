@@ -15,7 +15,7 @@ void explor() {
             for (int k = 0; k < 3; k++) {
                 if (j != k) {
                     for (int m = 0; m < 3; m++) {
-                        dp[i][k][m] = max(dp[i][k][m], list[i][k] + dp[i - 1][k][m]);
+                        dp[i][j][m] = max(dp[i][j][m], list[i][j] + dp[i - 1][k][m]);
                     }
                 }
             }
@@ -47,11 +47,11 @@ int main() {
         }
     } 
 
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 3; j++) {
-            dp[0][i][j] = list[i][j];
-        }
+
+    for (int i = 0; i < 3; i++) {
+        dp[0][i][i] = list[0][i];
     }
+    
 
     explor();
 
