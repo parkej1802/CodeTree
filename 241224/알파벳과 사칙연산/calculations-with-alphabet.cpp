@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <climits>
 
 using namespace std;
 
@@ -9,9 +10,8 @@ vector<char> sign;
 vector<char> alpha;
 unordered_map<char, int> map;
 vector<int> list;
-vector<int> cal;
 
-int maxNum = 0;
+int maxNum = INT_MIN;
 
 int calculate() {
     int result = map[alpha[0]];
@@ -27,13 +27,13 @@ int calculate() {
             result *= value;
         }
     }
-    
+
     return result;
 }
 
 void assignHashMap() {
     int index = 0;
-    for (char c = 'a'; c <= 'f'; c++) {
+    for (char c = 'a'; c <= 'f'; ++c) {
         map[c] = list[index++];
     }
 }
@@ -53,7 +53,7 @@ void backTracking() {
         return;
     }
 
-    for (int i = 1; i <= 4; i++) {
+    for (int i = 1; i <= 4; ++i) {
         list.push_back(i);
         backTracking();
         list.pop_back();
