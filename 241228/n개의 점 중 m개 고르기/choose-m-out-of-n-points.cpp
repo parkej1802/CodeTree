@@ -16,12 +16,15 @@ float calculateDistance(pair<int, int>& a, pair<int, int>& b) {
 }
 
 void distCalculation() {
+    double maxDist = 0;
     for (int i = 0; i < btList.size(); i++) {
         for (int j = i + 1; j < btList.size(); j++) {
             double dist = calculateDistance(btList[i], btList[j]);
-            minResult = min(minResult, dist);
+            maxDist = max(maxDist, dist);
         }
     }
+
+    minResult = min(minResult, maxDist);
 }
 
 void backTrack(int current) {
