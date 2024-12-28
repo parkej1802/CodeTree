@@ -10,21 +10,24 @@ int n;
 vector<long long> dp;
 long long count = 0;
 
+bool isClap(int num) {
+    if (num % 3 == 0) return true;
+    while (num > 0) {
+        if (num % 10 == 3 || num % 10 == 6 || num % 10 == 9) {
+            return true;
+        }
+        num /= 10;
+    }
+    return false;
+}
+
 void threeSixNine() {
 
-    for (long long i = 1; i <= n; i++) {
-        if (i % 3 == 0) {
-            count++;
-        }
-        else {
-            long long temp = i;
-            while (temp > 0) {
-                if (temp % 10 == 3 || temp % 10 == 6 || temp % 10 == 9) {
-                    count++;
-                    break;
-                }
-                temp /= 10; 
-            }
+    for (int i = 1; i <= n; i++) {
+        dp[i] = dp[i - 1];
+        
+        if (isClap(i)) {
+            dp[i] = (dp[i] + 1) % MOD;
         }
     }
 }
@@ -32,7 +35,11 @@ void threeSixNine() {
 int main() {
     cin >> n;
 
+    dp.resize(n + 1, 0);
+
     threeSixNine();
-    cout << count % MOD;
+
+    cout << dp[n] % MOD;
+
     return 0;
 }
