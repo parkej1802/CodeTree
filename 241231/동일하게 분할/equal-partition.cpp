@@ -13,24 +13,14 @@ void minSub() {
     dp[0][0] = true;
 
     for (int i = 1; i <= n; i++) {
-        for (int j = 0; j <= k; j++) {
-            if (j >= list[i] && dp[i - 1][j - list[i]]) {
-                dp[i][j] = true;
-            }
-            if (dp[i - 1][j]) {
+        for (int j = k; j >= list[i]; j--) {
+            if (dp[i - 1][j - list[i]]) {
                 dp[i][j] = true;
             }
         }
     }
 
-    int result = INT_MAX;
-    for (int i = 1; i < k; i++) {
-        if (dp[n][i]) {
-            result = min(result, abs(i - (k - i)));
-        }
-    }
-
-    if (result == INT_MAX) {
+    if (dp[n][k]) {
         cout << "No";
     } else {
         cout << "Yes";
