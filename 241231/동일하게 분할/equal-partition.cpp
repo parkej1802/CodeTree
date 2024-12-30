@@ -1,29 +1,28 @@
 #include <iostream>
 #include <vector>
-#include <climits>
 
 using namespace std;
 
-int n, k;
+int n, totalSum, k;
 vector<int> list;
-vector<vector<bool>> dp;
+vector<bool> dp;
 
 void minSub() {
-    
-    dp[0][0] = true;
+    dp[0] = true;
 
     for (int i = 1; i <= n; i++) {
-        for (int j = k; j >= list[i]; j--) {
-            if (dp[i - 1][j - list[i]]) {
-                dp[i][j] = true;
+        int num = list[i];
+        for (int j = totalSum / 2; j >= num; j--) {
+            if (dp[j - num]) {
+                dp[j] = true;
             }
         }
     }
 
-    if (dp[n][k]) {
-        cout << "No";
-    } else {
+    if (dp[totalSum / 2]) {
         cout << "Yes";
+    } else {
+        cout << "No";
     }
 }
 
@@ -32,21 +31,19 @@ int main() {
 
     list.resize(n + 1);
 
-    int total_sum = 0;
+    totalSum = 0;
     for (int i = 1; i <= n; i++) {
         cin >> list[i];
-        total_sum += list[i];
+        totalSum += list[i];
     }
 
-    if (total_sum % 2 != 0) {
+    if (totalSum % 2 != 0) {
         cout << "No";
         return 0;
     }
 
-    k = total_sum / 2;
-    
-    dp.resize(n + 1, vector<bool>(k + 1, false));
+    dp.resize(totalSum / 2 + 1, false);
     minSub();
 
-    return 0; 
+    return 0;
 }
