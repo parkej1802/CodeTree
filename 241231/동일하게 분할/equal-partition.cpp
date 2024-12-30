@@ -41,7 +41,6 @@ int main() {
     cin >> n;
 
     list.resize(n + 1);
-    dp.resize(n + 1, vector<bool>(k + 1, false));
 
     int total_sum = 0;
     for (int i = 1; i <= n; i++) {
@@ -55,7 +54,8 @@ int main() {
     }
 
     k = total_sum / 2;
-
+    
+    dp.resize(n + 1, vector<bool>(k + 1, false));
     minSub();
 
     return 0; 
