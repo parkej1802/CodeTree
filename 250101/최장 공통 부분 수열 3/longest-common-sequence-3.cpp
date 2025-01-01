@@ -14,7 +14,7 @@ int main() {
     vector<vector<int>> dp(n + 1, vector<int>(m + 1));
     vector<vector<pair<int, int>>> path(n + 1, vector<pair<int, int>>(m + 1));
     vector<vector<int>> cur_best(n + 1, vector<int>(m + 1, INF));
-.
+
     for(int i = 1; i <= n; i++) cin >> a[i];
     for(int i = 1; i <= m; i++) cin >> b[i];
     
