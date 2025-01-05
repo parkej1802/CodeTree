@@ -1,21 +1,41 @@
 #include <iostream>
-#include <vector>
 #include <unordered_map>
 
 using namespace std;
 
 int n;
-string str;
-vector<string> functions;
-unordered_map<int, int> map;
+
+void hashMap() {
+    
+}
 
 int main() {
-    cin >> n;
+    int n, k, v;
+    string str;
 
-    for (int i = 0; i < n; i++) {
+    cin >> n;
+    unordered_map<int, int> map;
+
+    for (int i = 0; i < n; ++i) {
         cin >> str;
-        if (isdigit(str)) {
+
+        if (str == "add") {
             
+            cin >> k >> v;
+            map[k] = v;
+        } 
+        else if (str == "find") {
+            cin >> k;
+            if (map.find(k) != map.end()) {
+                cout << map[k] << endl;
+            } 
+            else {
+                cout << "None" << endl;
+            }
+        } 
+        else if (str == "remove") {
+            cin >> k;
+            map.erase(k);
         }
     }
 
