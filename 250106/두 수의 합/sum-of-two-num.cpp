@@ -13,18 +13,15 @@ int main() {
     cin >> n >> k;
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
-        
+        map[arr[i]] = arr[i];
     }
 
     // Write your code here!
 
     for (int i = 0; i < n; i++) {
-        int temp = k - arr[i];
-        for (int j = 0; j < n; j++) {
-            if (i == j) continue;
-            if (temp == arr[j]) {
-                result++;
-            }
+        int a = k - arr[i];
+        if (map[a]) {
+            result++;
         }
     }
 
