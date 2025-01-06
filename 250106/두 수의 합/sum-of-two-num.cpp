@@ -23,6 +23,7 @@ int main() {
         int a = k - arr[i];
         if (map[a]) {
             result++;
+            map[a]--;
         }
     }
 
