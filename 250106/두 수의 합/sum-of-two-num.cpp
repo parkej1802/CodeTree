@@ -18,12 +18,20 @@ int main() {
 
     // Write your code here!
 
-    for (int i = 0; i < n; i++) {
-        map[arr[i]]--;
-        int a = k - arr[i];
-        if (map[a]) {
-            result++;
-            map[a]--;
+    for (auto &pair : map) {
+        int num = pair.first;
+        int count = pair.second;
+        int target = k - num;
+
+        if (map.find(target) != map.end()) {
+            if (num == target) {
+                result += count * (count - 1) / 2;
+            } 
+            else if (map[num] && map[target]) {
+                result += count * map[target];
+                map[target] = 0;
+            }
+            map[num] = 0;
         }
     }
 
